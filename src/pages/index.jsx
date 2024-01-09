@@ -161,6 +161,7 @@ const Index = () => {
                 <h2 className="text-3xl py-4 border-b-2 font-[Modren]">
                   About
                 </h2>
+                
                 <div className="py-4">
                   <motion.p
                     initial={{ opacity: 0, x: -200 }}
