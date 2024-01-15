@@ -22,7 +22,9 @@ const aboutSchema = new mongoose.Schema(
       unique: true,
       trim: true,
     },
-    // Other fields...
+    tech:[
+      
+    ]
   },
   { timestamps: true }
 );
