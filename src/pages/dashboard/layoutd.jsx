@@ -3,7 +3,6 @@ import Link from "next/link";
 const layoutd = ({ children }) => {
   const navlink = [
     { name: "Dashboard", link: "/dashboard", i: "bx bxs-dashboard" },
-    { name: "About", link: "/dashboard/about", i: "bx bxs-user" },
     { name: "Form", link: "/dashboard/form", i: "bx bxs-add-to-queue" },
     { name: "List ", link: "/dashboard/list", i: "bx bx-table" },
   ];
@@ -33,13 +32,13 @@ const layoutd = ({ children }) => {
               className="flex justify-center items-center w-max gap-2 bg-slate-600 py-2 px-4 rounded-lg"
               href={"/login"}
             >
-              <i class="bx bx-log-out-circle"></i>
+              <i className="bx bx-log-out-circle"></i>
               Logout
             </Link>
           </div>
         </aside>
 
-        <main className="h-full overflow-auto w-full max-md:rounded-lg rounded-3xl bg-[#161C20]">
+        <main className="h-full overflow-auto w-full max-md:rounded-lg rounded-3xl bg-[#161C20] p-4">
           {children}
         </main>
 

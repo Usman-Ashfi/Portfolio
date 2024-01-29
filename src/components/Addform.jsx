@@ -1,9 +1,8 @@
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { useRouter } from "next/router";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 
 const Addblog = () => {
   const [tempImg, setTemImg] = useState("");
@@ -39,12 +38,26 @@ const Addblog = () => {
           });
           res = await res.json();
           if (res.success) {
-            toast.success(res.message);
+            toast.success(res.message, {
+              style: {
+                borderRadius: "10px",
+                background: "#333",
+                color: "#fff",
+                marginTop: "10px",
+              },
+            });
             reset();
             setTemImg(null);
             setLoading(false);
           } else {
-            toast.error(res.message);
+            toast.error(res.message, {
+              style: {
+                borderRadius: "10px",
+                background: "#333",
+                color: "#fff",
+                marginTop: "10px",
+              },
+            });
             setLoading(false);
           }
         } catch (error) {
@@ -52,7 +65,14 @@ const Addblog = () => {
         }
       } else {
         setLoading(false);
-        toast.error("Please Upload imge");
+        toast.error("Please Upload imge", {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+            marginTop: "10px",
+          },
+        });
       }
     } catch (error) {
       console.log(error);
@@ -83,16 +103,7 @@ const Addblog = () => {
 
   return (
     <section className="w-full">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        draggable
-        theme="colored"
-      />
+      <Toaster position="top-center" reverseOrder={true} />
       <form
         className="w-[60%] m-auto max-md:w-[95%] bg-[#101315] px-4 py-6 rounded-lg"
         onSubmit={handleSubmit(submitForm)}

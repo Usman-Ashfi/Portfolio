@@ -22,9 +22,49 @@ const aboutSchema = new mongoose.Schema(
       unique: true,
       trim: true,
     },
-    tech:[
-      
-    ]
+    phone: {
+      type: Number,
+      required: [true, "Phone is Required!"],
+      unique: true,
+      trim: true,
+    },
+    tech: [],
+    fb: {
+      type: String,
+      required: [true, "Facebook is Required!"],
+      unique: true,
+      trim: true,
+    },
+    insta: {
+      type: String,
+      required: [true, "Insta is Required!"],
+      unique: true,
+      trim: true,
+    },
+    twitter: {
+      type: String,
+      required: [true, "twitter is Required!"],
+      unique: true,
+      trim: true,
+    },
+    git: {
+      type: String,
+      required: [true, "Github is Required!"],
+      unique: true,
+      trim: true,
+    },
+    upw: {
+      type: String,
+      required: [true, "Upwork is Required!"],
+      unique: true,
+      trim: true,
+    },
+    lk: {
+      type: String,
+      required: [true, "Linkdien is Required!"],
+      unique: true,
+      trim: true,
+    },
   },
   { timestamps: true }
 );

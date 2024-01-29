@@ -1,8 +1,7 @@
 import { Usefetch } from "@/hooks/queryfetchProjects";
 import axios from "axios";
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast, { Toaster } from "react-hot-toast";
 import Layoutd from "../layoutd";
 
 export default function App() {
@@ -30,12 +29,26 @@ export default function App() {
   const deleting = async (id) => {
     var res = await axios.delete(`/api/projects?_id=${id}`);
     if (res.data.success) {
-      toast.success(res.data.message);
+      toast.success(res.data.message, {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+          marginTop: "10px",
+        },
+      });
     }
   };
   const del = async (arr) => {
     if (!arr.length > 0) {
-      toast.error("Please select item to Delete");
+      toast.error("Please select item to Delete", {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+          marginTop: "10px",
+        },
+      });
     }
     arr?.map(async (v) => {
       console.log(v);
@@ -62,24 +75,14 @@ export default function App() {
 
   return (
     <Layoutd>
+      <Toaster position="top-center" reverseOrder={true} />
       <div className="px-4">
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
-
         <div className="text-sm flex flex-wrap justify-between items-center gap-4 pt-10 md:py-10 px-4">
           <div className="flex gap-4 text-2xl">
             <div className="w-min animate-spin-slower">⌔</div>
-            <h2 className=" font-extrabold text-white font-[Modren]">PROJECTS</h2>
+            <h2 className=" font-extrabold text-white font-[Modren]">
+              PROJECTS
+            </h2>
           </div>
           <div className="flex items-center gap-4">
             <button
@@ -128,7 +131,7 @@ export default function App() {
                         <i className="bx bxs-edit-alt"></i>
                       </button>
                       <button onClick={() => deleting(v._id)}>
-                        <i class="bx bxs-trash-alt text-red-600"></i>
+                        <i className="bx bxs-trash-alt text-red-600"></i>
                       </button>
                     </div>
                   </td>

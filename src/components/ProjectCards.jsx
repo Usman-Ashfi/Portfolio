@@ -59,7 +59,7 @@ export default function ProjectsCards({ setImg }) {
                 target="_blank"
                 className="bg-[#323232] rounded-lg py-2 px-4"
               >
-                <i class="bx bx-right-top-arrow-circle"></i>
+                <i className="bx bx-right-top-arrow-circle"></i>
               </Link>
             </div>
           </div>

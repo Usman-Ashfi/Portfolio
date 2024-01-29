@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast, { Toaster } from "react-hot-toast";
+
 import axios from "axios";
 import { useRouter } from "next/router";
 //
@@ -20,26 +20,23 @@ export default function Loginform() {
         Router.push("/dashboard");
       }, 1000);
     } else {
-      toast.error(res.data.message);
+      toast.error(res.data.message, {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+          marginTop:"10px"
+        },
+      });
     }
   };
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
+      <Toaster position="top-center" reverseOrder={true} />
+
       <div className="container">
-        <input id="signup_toggle" type="checkbox" />
+        
         <form onSubmit={handleSubmit(submit)} className="form">
           <div className="form_front">
             <div className="form_details">Login</div>
@@ -58,7 +55,9 @@ export default function Loginform() {
             <button className="btn">Login</button>
           </div>
         </form>
+
       </div>
+
     </>
   );
 }

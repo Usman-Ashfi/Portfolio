@@ -24,6 +24,9 @@ body {
   backdrop-filter: blur(16px);
   color: white;
 }
+.md{
+  font-family: "Modren";
+}
 /* table ----------------------------------- */
 th {
   padding: 15px 15px;

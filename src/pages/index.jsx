@@ -4,6 +4,7 @@ import { Usefetchme } from "@/hooks/aboutme";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const Loading = () => {
   return (
@@ -22,52 +23,41 @@ const Loading = () => {
 };
 
 const Index = () => {
-  // load the message ================================
+  // Loading message ================================
   const [showLoading, setShowLoading] = useState(true);
 
   useEffect(() => {
     const delay = setTimeout(() => {
-      setShowLoading(false); // After the delay, set showLoading to true
-    }, 5000); // 5000 milliseconds = 5 seconds
+      setShowLoading(false);
+    }, 3000);
 
-    // Clear the timeout in case the component unmounts before the delay finishes
     return () => clearTimeout(delay);
   }, []);
-  // load the message ================================
 
-  const social = [
-    {
-      herf: "www.linkedin.com/in/usman-ashfi",
-      i: "bx bxl-linkedin-square group-hover:text-blue-500",
-    },
-    {
-      herf: "https://www.upwork.com/freelancers/~015a6292fcb5cb75e0?viewMode=1",
-      i: "bx bxl-upwork group-hover:text-green-500",
-    },
-    {
-      herf: "https://github.com/Usman-Ashfi",
-      i: "bx bxl-github group-hover:text-white",
-    },
-    {
-      herf: "https://www.instagram.com/osmanashfaq/",
-      i: "bx bxl-instagram-alt group-hover:bg-gradient-to-r from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] group-hover:bg-clip-text group-hover:text-transparent",
-    },
-    {
-      herf: "https://twitter.com/The_Ruthless__",
-      i: "bx bxl-xing group-hover:text-white",
-    },
-    {
-      herf: "tel:+923046942283",
-      i: "bx bxl-whatsapp group-hover:text-green-500",
-    },
-  ];
+  // Copy message ================================
+
+  const copy = (text) => {
+    try {
+      navigator.clipboard.writeText(text);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      toast.success("Copied", {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+          marginTop: "10px",
+        },
+      });
+    }
+  };
+
+  // Copy message ================================
+
   const { isLoading, error, data } = Usefetchme();
   if (isLoading) {
-    return (
-      <div>
-        <div class="text">Loading...</div>
-      </div>
-    );
+    return <></>;
   }
 
   if (error)
@@ -82,13 +72,41 @@ const Index = () => {
 
   let me = data?.data?.message;
 
+  const { twitter, lk, insta, git, upw, phone } = me;
+  const social = [
+    {
+      herf: lk,
+      i: "bx bxl-linkedin-square group-hover:text-blue-500",
+    },
+    {
+      herf: upw,
+      i: "bx bxl-upwork group-hover:text-green-500",
+    },
+    {
+      herf: git,
+      i: "bx bxl-github group-hover:text-white",
+    },
+    {
+      herf: insta,
+      i: "bx bxl-instagram-alt group-hover:bg-gradient-to-r from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] group-hover:bg-clip-text group-hover:text-transparent",
+    },
+    {
+      herf: twitter,
+      i: "bx bxl-xing group-hover:text-white",
+    },
+    {
+      herf: `tel:${phone}`,
+      i: "bx bxl-whatsapp group-hover:text-green-500",
+    },
+  ];
+
   return (
     <>
+      <Toaster position="top-center" reverseOrder={true} />
       <div>
         {showLoading ? (
-          <Loading /> // Render the Loading component if showLoading is true
+          <Loading />
         ) : (
-          /* Render other content or components */
           <>
             <section className="h-[300px]">
               <video
@@ -123,7 +141,7 @@ const Index = () => {
                     initial={{ opacity: 0, x: -200 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1, delay: 1 }}
-                    className="text-4xl py-4 font-[Modren]"
+                    className="text-4xl py-4 md"
                   >
                     {me?.Name}
                   </motion.h2>
@@ -149,7 +167,10 @@ const Index = () => {
                     <button className="bg-slate-200 text-black rounded-lg flex-auto">
                       <i className="bx bx-upload text-xl py-3 px-4"></i>
                     </button>
-                    <button className="bg-slate-200 max-md:text-sm text-black rounded-lg h-full py-1 px-4 flex-auto w-[80%]">
+                    <button
+                      onClick={() => copy(me?.email)}
+                      className="bg-slate-200 max-md:text-sm text-black rounded-lg h-full py-1 px-4 flex-auto w-[80%]"
+                    >
                       <span>{me?.email}</span>
                       <i className="bx bx-copy  py-3 pl-4"></i>
                     </button>
@@ -161,7 +182,7 @@ const Index = () => {
                 <h2 className="text-3xl py-4 border-b-2 font-[Modren]">
                   About
                 </h2>
-                
+
                 <div className="py-4">
                   <motion.p
                     initial={{ opacity: 0, x: -200 }}
