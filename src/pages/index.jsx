@@ -1,7 +1,6 @@
 import Link from "next/link";
 import ProjectsCards from "@/components/ProjectCards";
 import { Usefetchme } from "@/hooks/aboutme";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -29,7 +28,7 @@ const Index = () => {
   useEffect(() => {
     const delay = setTimeout(() => {
       setShowLoading(false);
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(delay);
   }, []);
@@ -103,111 +102,85 @@ const Index = () => {
   return (
     <>
       <Toaster position="top-center" reverseOrder={true} />
-      <div>
-        {showLoading ? (
-          <Loading />
-        ) : (
-          <>
-            <section className="h-[300px]">
-              <video
+
+      {showLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <section className="h-[300px]">
+            {/* <video
                 className="w-full h-full aspect-video blur-sm object-cover"
                 autoPlay
                 loop
                 muted
               >
                 <source src="/bg.mp4" />
-              </video>
-            </section>
-            <motion.section
-              initial={{ opacity: 0, y: 200 }}
-              animate={{ opacity: 1, y: -70 }}
-              transition={{ duration: 1 }}
-              className="-translate-y-16 max-w-[550px] px-4 m-auto"
-            >
-              {/* intro Section -------------------------------------------- */}
-              <section className="mb-4">
-                <div className="w-full flex justify-center ">
-                  <Image
-                    priority
-                    width={300}
-                    height={300}
-                    className="w-[150px] h-[150px] border-4 border-gray-700 rounded-full object-cover bg-[#0000007a]"
-                    src="/me.png"
-                    alt=""
-                  />
-                </div>
-                <div className="text-center flex flex-col gap-4">
-                  <motion.h2
-                    initial={{ opacity: 0, x: -200 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 1, delay: 1 }}
-                    className="text-4xl py-4 md"
-                  >
-                    {me?.Name}
-                  </motion.h2>
+              </video> */}
+          </section>
 
-                  <div className="flex justify-center gap-4 flex-wrap">
-                    {social?.map((v, i) => (
-                      <Link
-                        className="group text-gray-300"
-                        key={i}
-                        target="_blank"
-                        href={v.herf}
-                      >
-                        <motion.i
-                          initial={{ opacity: 0, y: 100 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 2, delay: 2 }}
-                          className={`${v.i} mr-4 text-3xl max-md:text-lg `}
-                        ></motion.i>
-                      </Link>
-                    ))}
-                  </div>
-                  <div className="flex justify-center gap-2 flex-wrap-reverse">
-                    <button className="bg-slate-200 text-black rounded-lg flex-auto">
-                      <i className="bx bx-upload text-xl py-3 px-4"></i>
-                    </button>
-                    <button
-                      onClick={() => copy(me?.email)}
-                      className="bg-slate-200 max-md:text-sm text-black rounded-lg h-full py-1 px-4 flex-auto w-[80%]"
+          <section className="max-w-[550px] px-4 m-auto">
+            {/* intro Section -------------------------------------------- */}
+            <section className="mb-4">
+              <div className="w-full flex justify-center ">
+                <Image
+                  width={300}
+                  height={300}
+                  className="w-[150px] h-[150px] border-4 border-gray-700 rounded-full object-cover bg-[#0000007a]"
+                  src="/me.png"
+                  alt="usman"
+                />
+              </div>
+              <div className="text-center flex flex-col gap-4">
+                <h2 className="text-4xl py-4 md">{me?.Name}</h2>
+
+                <div className="flex justify-center gap-4 flex-wrap">
+                  {social?.map((v, i) => (
+                    <Link
+                      className="group text-gray-300"
+                      key={i}
+                      target="_blank"
+                      href={v.herf}
                     >
-                      <span>{me?.email}</span>
-                      <i className="bx bx-copy  py-3 pl-4"></i>
-                    </button>
-                  </div>
+                      <i className={`${v.i} mr-4 text-3xl max-md:text-lg `}></i>
+                    </Link>
+                  ))}
                 </div>
-              </section>
-              {/* About Section ---------------------------------------------*/}
-              <section>
-                <h2 className="text-3xl py-4 border-b-2 font-[Modren]">
-                  About
-                </h2>
-
-                <div className="py-4">
-                  <motion.p
-                    initial={{ opacity: 0, x: -200 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 1, delay: 2 }}
-                    className="text-gray-400 "
+                <div className="flex justify-center gap-2 flex-wrap-reverse">
+                  <button className="bg-slate-200 text-black rounded-lg flex-auto">
+                    <i className="bx bx-upload text-xl py-3 px-4"></i>
+                  </button>
+                  <button
+                    onClick={() => copy(me?.email)}
+                    className="bg-slate-200 max-md:text-sm text-black rounded-lg h-full py-1 px-4 flex-auto w-[80%]"
                   >
-                    {me?.description}
-                  </motion.p>
+                    <span>{me?.email}</span>
+                    <i className="bx bx-copy  py-3 pl-4"></i>
+                  </button>
                 </div>
-              </section>
-              {/* Project Section ------------------------------------------ */}
-              <section>
-                <h2 className="text-3xl py-4 border-b-2 font-[Modren]">
-                  Projects
-                </h2>
-                <div className="py-4">
-                  <ProjectsCards />
-                </div>
-              </section>
-            </motion.section>
-          </>
-        )}
-      </div>
+              </div>
+            </section>
+            {/* About Section ---------------------------------------------*/}
+            <section>
+              <h2 className="text-3xl py-4 border-b-2 font-[Modren]">About</h2>
+
+              <div className="py-4">
+                <p className="text-gray-400 ">{me?.description}</p>
+              </div>
+            </section>
+            {/* Project Section ------------------------------------------ */}
+            <section>
+              <h2 className="text-3xl py-4 border-b-2 font-[Modren]">
+                Projects
+              </h2>
+              <div className="py-4">
+                <ProjectsCards />
+              </div>
+            </section>
+          </section>
+        </>
+      )}
     </>
+
   );
 };
 
